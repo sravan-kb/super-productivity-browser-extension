@@ -106,7 +106,7 @@ function formatError(error) {
 
 function showStatus(message, success) {
   statusOutput.textContent = message;
-  statusOutput.style.color = success ? "#188038" : "#b3261e";
+  statusOutput.style.color = success ? "var(--ok)" : "var(--err)";
 }
 
 function setBusy(isBusy) {

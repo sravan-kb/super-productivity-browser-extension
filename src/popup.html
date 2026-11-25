@@ -3,34 +3,69 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title>Web Clipper for Super Productivity</title>
     <style>
-      body { width: 360px; margin: 0; padding: 10px 16px; font: 14px Arial, sans-serif; color: #202124; }
+      :root {
+        --bg: #ffffff;
+        --text: #202124;
+        --muted: #5f6368;
+        --border: #9aa0a6;
+        --field-bg: #ffffff;
+        --accent: #1967d2;
+        --accent-text: #ffffff;
+        --chip-bg: #e8f0fe;
+        --chip-text: #174ea6;
+        --chip-hover: #d2e3fc;
+        --hover-bg: #e8f0fe;
+        --shadow: rgba(32, 33, 36, .2);
+        --ok: #188038;
+        --err: #b3261e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #202124;
+          --text: #e8eaed;
+          --muted: #9aa0a6;
+          --border: #5f6368;
+          --field-bg: #2d2e31;
+          --accent: #8ab4f8;
+          --accent-text: #202124;
+          --chip-bg: #394457;
+          --chip-text: #aecbfa;
+          --chip-hover: #47536b;
+          --hover-bg: #394457;
+          --shadow: rgba(0,0,0,.5);
+          --ok: #81c995;
+          --err: #f28b82;
+        }
+      }
+      body { width: 360px; margin: 0; padding: 10px 16px; font: 14px Arial, sans-serif; background: var(--bg); color: var(--text); }
       h1 { margin: 0 0 6px; font-size: 16px; }
       label, legend, .url-label { display: block; margin: 6px 0 3px; font-weight: 600; }
       input, textarea, select, button { box-sizing: border-box; width: 100%; font: inherit; }
-      input, textarea, select { padding: 8px; border: 1px solid #9aa0a6; border-radius: 4px; }
+      input, textarea, select { padding: 8px; border: 1px solid var(--border); border-radius: 4px; background: var(--field-bg); color: var(--text); }
       textarea { min-height: 52px; resize: vertical; }
-      .url { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; color: #5f6368; }
+      .url { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; color: var(--muted); }
       fieldset { border: 0; padding: 0; margin: 6px 0; }
       .choice { display: flex; align-items: center; gap: 7px; font-weight: normal; margin: 2px 0; }
       .choice input { width: auto; }
-      button { margin-top: 8px; padding: 9px; border: 0; border-radius: 4px; background: #1967d2; color: white; cursor: pointer; }
+      button { margin-top: 8px; padding: 9px; border: 0; border-radius: 4px; background: var(--accent); color: var(--accent-text); cursor: pointer; }
       button:disabled { opacity: .6; cursor: wait; }
       #status { min-height: 16px; margin-top: 4px; white-space: pre-wrap; }
-      .tag-box { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 4px 6px; border: 1px solid #9aa0a6; border-radius: 4px; background: #fff; }
-      .tag-box:focus-within { border-color: #1967d2; box-shadow: inset 0 0 0 1px #1967d2; }
+      .tag-box { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; background: var(--field-bg); }
+      .tag-box:focus-within { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
       #tagChips { display: flex; flex-wrap: wrap; gap: 4px; max-height: 48px; overflow-y: auto; }
       #tagChips:empty { display: none; }
-      .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px 2px 7px; background: #e8f0fe; color: #174ea6; border-radius: 12px; font-size: 12px; }
+      .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px 2px 7px; background: var(--chip-bg); color: var(--chip-text); border-radius: 12px; font-size: 12px; }
       .chip button { width: auto; margin: 0; padding: 0 5px; border: 0; background: transparent; color: inherit; font-size: 14px; line-height: 1; cursor: pointer; }
-      .chip button:hover { background: #d2e3fc; }
+      .chip button:hover { background: var(--chip-hover); }
       #tagSearch { padding: 2px; border: 0; border-radius: 0; outline: none; background: transparent; }
-      #tagList { position: absolute; bottom: calc(100% + 2px); left: 0; right: 0; z-index: 1; max-height: 168px; overflow-y: auto; border: 1px solid #9aa0a6; border-radius: 4px; background: #fff; box-shadow: 0 2px 8px rgba(32, 33, 36, .2); }
+      #tagList { position: absolute; bottom: calc(100% + 2px); left: 0; right: 0; z-index: 1; max-height: 168px; overflow-y: auto; border: 1px solid var(--border); border-radius: 4px; background: var(--field-bg); box-shadow: 0 2px 8px var(--shadow); }
       #tagList[hidden] { display: none; }
       #tagList .choice { margin: 0; padding: 5px 8px; border-radius: 2px; }
-      #tagList .choice:hover, #tagList .choice.active { background: #e8f0fe; }
-      #tagList .empty { padding: 6px 8px; color: #5f6368; }
+      #tagList .choice:hover, #tagList .choice.active { background: var(--hover-bg); }
+      #tagList .empty { padding: 6px 8px; color: var(--muted); }
     </style>
   </head>
   <body>

@@ -300,7 +300,7 @@ async function submitTask() {
     });
     if (!result.ok) throw result.error;
     statusOutput.textContent = "Task added to Super Productivity.";
-    statusOutput.style.color = "#188038";
+    statusOutput.style.color = "var(--ok)";
   } catch (error) {
     showError(formatError(error));
   } finally {
@@ -314,7 +314,7 @@ function sendMessage(message) {
 
 function showError(message) {
   statusOutput.textContent = message;
-  statusOutput.style.color = "#b3261e";
+  statusOutput.style.color = "var(--err)";
 }
 
 function formatError(error) {
